@@ -37,8 +37,8 @@ def run_optimization(data_path: str, num_trials: int):
         def objective(params):
             with mlflow.start_run(nested=True):
                 mlflow.set_tag('model', 'RandomForestRegressor')
-                mlflow.log_param('train-data-path', os.path.join(data_path, "train.pkl"))
-                mlflow.log_param('val-data-path', os.path.join(data_path, "val.pkl"))
+                mlflow.log_param('train-data', os.path.join(data_path, "train.pkl"))
+                mlflow.log_param('val-data', os.path.join(data_path, "val.pkl"))
             
                 mlflow.log_params(params)
                 rf = RandomForestRegressor(**params)

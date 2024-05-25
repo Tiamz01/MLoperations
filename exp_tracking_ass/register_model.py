@@ -16,6 +16,8 @@ mlflow.set_tracking_uri("http://127.0.0.1:5000")
 mlflow.set_experiment(EXPERIMENT_NAME)
 mlflow.sklearn.autolog()
 
+client = MlflowClient()
+
 
 def load_pickle(filename):
     with open(filename, "rb") as f_in:
@@ -53,6 +55,10 @@ def train_and_log_model(data_path, params):
     type=int,
     help="Number of top models that need to be evaluated to decide which one to promote"
 )
+
+
+
+
 def run_register_model(data_path: str, top_n: int):
 
     client = MlflowClient()
@@ -70,10 +76,14 @@ def run_register_model(data_path: str, top_n: int):
 
     # Select the model with the lowest test RMSE
     experiment = client.get_experiment_by_name(EXPERIMENT_NAME)
-    # best_run = client.search_runs( ...  )[0]
+    best_run = client.search_runs( ...  )[0]
 
     # Register the best model
-    # mlflow.register_model( ... )
+    mlflow.register_model( model_uri= "runs:/<RUN_ID>/model", name="Best performing optimized model" )
+
+    
+   
+
 
 
 if __name__ == '__main__':
