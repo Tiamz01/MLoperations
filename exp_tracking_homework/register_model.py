@@ -79,7 +79,8 @@ def run_register_model(data_path: str, top_n: int):
     best_run = client.search_runs( ...  )[0]
 
     # Register the best model
-    mlflow.register_model( model_uri= "runs:/<RUN_ID>/model", name="Best performing optimized model" )
+    MODEL_URI = F"runs:/<RUN_ID>/model"
+    mlflow.register_model( model_uri= MODEL_URI, name="Best performing RF model" )
 
     
    
