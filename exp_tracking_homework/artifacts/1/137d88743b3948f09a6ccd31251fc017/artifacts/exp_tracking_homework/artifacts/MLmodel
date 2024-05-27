@@ -1,0 +1,12 @@
+artifact_path: exp_tracking_homework/artifacts
+flavors:
+  sklearn:
+    code: null
+    pickled_model: model.pkl
+    serialization_format: cloudpickle
+    sklearn_version: 1.5.0
+mlflow_version: 2.13.0
+model_size_bytes: 20
+model_uuid: 4291c4b4773e48609fc6c7b31ea90735
+run_id: 137d88743b3948f09a6ccd31251fc017
+utc_time_created: '2024-05-27 15:10:07.954164'

@@ -9,21 +9,14 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_squared_error
 
 mlflow.set_tracking_uri("http://127.0.0.1:5000")
-
-# Set the default artifact location
-custom_artifact_location = "/home/t.sukanmi/mlops_pratical/exp_tracking_homework/artifacts"
-os.environ["MLFLOW_ARTIFACT_ROOT"] = custom_artifact_location
-
-# Set the MLflow experiment
 mlflow.set_experiment("random-forest-hyperopt")
-
 
 
 def load_pickle(filename: str):
     with open(filename, "rb") as f_in:
         return pickle.load(f_in)
 
- 
+
 @click.command()
 @click.option(
     "--data_path",
@@ -54,7 +47,9 @@ def run_optimization(data_path: str, num_trials: int):
                 rmse = mean_squared_error(y_val, y_pred, squared=False)
                 mlflow.log_metric('rmse', rmse)
 
-                mlflow.sklearn.log_model('model', artifact_path='./artifacts')
+                mlflow.sklearn.log_model('artifacts', artifact_path='exp_tracking_homework/artifacts')
+                mlflow.sklearn.log_model('model', artifact_path='exp_tracking_homework/artifacts')
+
                 return {'loss': rmse, 'status': STATUS_OK}
 
         search_space = {
