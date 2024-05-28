@@ -79,9 +79,11 @@ def run_register_model(data_path: str, top_n: int):
                                         run_view_type=ViewType.ACTIVE_ONLY,
                                         max_results=top_n,
                                         order_by=["metrics.rmse ASC"] )[0]
+   # Debugging: Print best run ID
+    print(f"Best run ID: {best_run.info.run_id}")
 
     # Register the best model
-    mlflow.register_model(model_uri=f'runs:/<{best_run.info.run_id}>/model', name="best performing RF model")
+    mlflow.register_model(model_uri=f'runs:/{best_run.info.run_id}/model', name="best performing RF model")
 
 
 
