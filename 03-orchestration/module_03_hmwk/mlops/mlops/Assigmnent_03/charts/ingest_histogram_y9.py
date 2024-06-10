@@ -12,5 +12,5 @@ if isinstance(df_1, list) and len(df_1) >= 1:
     df_1 = item
 
 columns = df_1.columns
-col = 'trip_distance'
-x = df_1[df_1[col] <= 20][col]
+col = list(filter(lambda x: df_1[x].dtype == float or df_1[x].dtype == int, columns))[0]
+x = df_1[col]

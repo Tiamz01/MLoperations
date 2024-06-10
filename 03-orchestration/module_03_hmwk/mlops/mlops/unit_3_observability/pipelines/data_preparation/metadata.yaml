@@ -11,7 +11,7 @@ blocks:
   - most_frequent_values_for_ingest
   - summary_overview_for_ingest
   - feature_profiles_for_ingest
-  - prepare
+  - broken_rune
   executor_config: null
   executor_type: local_python
   has_callback: false
@@ -27,22 +27,20 @@ blocks:
   color: null
   configuration:
     file_source:
-      path: unit_1_data_preparation/transformers/prepare.py
-  downstream_blocks:
-  - prepare_histogram_u9
-  - build
+      path: unit_3_observability/transformers/broken_rune.py
+  downstream_blocks: []
   executor_config: null
   executor_type: local_python
   has_callback: false
   language: python
-  name: Prepare
+  name: broken rune
   retry_config: null
-  status: executed
+  status: updated
   timeout: null
   type: transformer
   upstream_blocks:
   - ingest
-  uuid: prepare
+  uuid: broken_rune
 - all_upstream_blocks_executed: true
   color: null
   configuration:
@@ -58,8 +56,7 @@ blocks:
   status: executed
   timeout: null
   type: data_exporter
-  upstream_blocks:
-  - prepare
+  upstream_blocks: []
   uuid: build
 cache_block_output_in_memory: false
 callbacks: []
@@ -89,7 +86,7 @@ variables:
   split_on_feature: lpep_pickup_datetime
   split_on_feature_value: '2024-02-01'
   target: duration
-variables_dir: /root/.mage_data/unit_1_data_preparation
+variables_dir: /home/src/mage_data/unit_3_observability
 widgets:
 - all_upstream_blocks_executed: true
   color: null
@@ -129,7 +126,7 @@ widgets:
   language: python
   name: missing values for ingest
   retry_config: null
-  status: executed
+  status: failed
   timeout: null
   type: chart
   upstream_blocks:
@@ -219,22 +216,3 @@ widgets:
   upstream_blocks:
   - ingest
   uuid: feature_profiles_for_ingest
-- all_upstream_blocks_executed: true
-  color: null
-  configuration:
-    buckets: '20'
-    chart_type: histogram
-    x: x
-  downstream_blocks: []
-  executor_config: null
-  executor_type: local_python
-  has_callback: false
-  language: python
-  name: prepare_histogram_u9
-  retry_config: null
-  status: executed
-  timeout: null
-  type: chart
-  upstream_blocks:
-  - prepare
-  uuid: prepare_histogram_u9

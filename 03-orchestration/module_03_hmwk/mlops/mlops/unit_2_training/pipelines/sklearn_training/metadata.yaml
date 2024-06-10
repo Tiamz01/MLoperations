@@ -6,69 +6,30 @@ blocks:
       path: unit_2_training/global_data_products/training_set.py
     global_data_product:
       uuid: training_set
-  downstream_blocks:
-  - hyperparameter_tuning/sklearn
-  executor_config: null
-  executor_type: local_python
-  has_callback: false
-  language: python
-  name: training set
-  retry_config: null
-  status: executed
-  timeout: null
-  type: global_data_product
-  upstream_blocks: []
-  uuid: training_set
-- all_upstream_blocks_executed: true
-  color: pink
-  configuration:
-    file_source:
-      path: unit_2_training/custom/model_loader.py
-  downstream_blocks:
-  - hyperparameter_tuning/sklearn
-  executor_config: null
-  executor_type: local_python
-  has_callback: false
-  language: python
-  name: model loader
-  retry_config: null
-  status: executed
-  timeout: null
-  type: custom
-  upstream_blocks: []
-  uuid: model_loader
-- all_upstream_blocks_executed: true
-  color: null
-  configuration:
-    file_source:
-      path: unit_2_training/transformers/hyperparameter_tuning/sklearn.py
   downstream_blocks: []
   executor_config: null
   executor_type: local_python
   has_callback: false
   language: python
-  name: hyperparameter_tuning/sklearn
+  name: Training set
   retry_config: null
   status: failed
   timeout: null
-  type: transformer
-  upstream_blocks:
-  - training_set
-  - model_loader
-  uuid: hyperparameter_tuning/sklearn
+  type: global_data_product
+  upstream_blocks: []
+  uuid: training_set
 cache_block_output_in_memory: false
 callbacks: []
 concurrency_config: {}
 conditionals: []
-created_at: '2024-06-10 07:14:47.118060+00:00'
+created_at: '2024-06-10 17:28:30.917825+00:00'
 data_integration: null
-description: This pipeline trains a regression model (Linear regression, Lasso, LinearSVR,
-  randomforestregressor)
+description: null
 executor_config: {}
 executor_count: 1
 executor_type: null
 extensions: {}
-name: sklearn training
+name: sklearn_training
 notification_config: {}
 remote_variables_dir: null
 retry_config: {}
@@ -79,8 +40,5 @@ spark_config: {}
 tags: []
 type: python
 uuid: sklearn_training
-variables:
-  max_evaluations: 50
-  random_state: 7
 variables_dir: /home/src/mage_data/unit_2_training
 widgets: []
