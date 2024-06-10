@@ -6,7 +6,6 @@ blocks:
       path: homework_03/data_loaders/ingest.py
   downstream_blocks:
   - prepare
-  - ingest_time_series_line_chart_c5
   - missing_values_for_ingest
   - unique_values_for_ingest
   - most_frequent_values_for_ingest
@@ -85,31 +84,8 @@ variables:
   split_on_feature: tpep_pickup_datetime
   split_on_feature_value: '2023-03-01'
   target: duration
-variables_dir: /home/src/mage_data/homework_03
+variables_dir: /home/src/mage_data/unit_2_training
 widgets:
-- all_upstream_blocks_executed: true
-  color: null
-  configuration:
-    chart_type: time series bar chart
-    group_by:
-    - tpep_pickup_datetime
-    metrics:
-    - aggregation: average
-      column: tpep_pickup_datetime
-    time_interval: original
-  downstream_blocks: []
-  executor_config: null
-  executor_type: local_python
-  has_callback: false
-  language: python
-  name: ingest_time series line chart_c5
-  retry_config: null
-  status: executed
-  timeout: null
-  type: chart
-  upstream_blocks:
-  - ingest
-  uuid: ingest_time_series_line_chart_c5
 - all_upstream_blocks_executed: true
   color: null
   configuration:
@@ -149,8 +125,7 @@ widgets:
   status: executed
   timeout: null
   type: chart
-  upstream_blocks:
-  - ingest
+  upstream_blocks: []
   uuid: unique_values_for_ingest
 - all_upstream_blocks_executed: true
   color: null
@@ -170,8 +145,7 @@ widgets:
   status: executed
   timeout: null
   type: chart
-  upstream_blocks:
-  - ingest
+  upstream_blocks: []
   uuid: most_frequent_values_for_ingest
 - all_upstream_blocks_executed: true
   color: null
@@ -193,9 +167,8 @@ widgets:
   language: python
   name: ingest_bar chart_j0
   retry_config: null
-  status: executed
+  status: failed
   timeout: null
   type: chart
-  upstream_blocks:
-  - ingest
+  upstream_blocks: []
   uuid: ingest_bar_chart_j0

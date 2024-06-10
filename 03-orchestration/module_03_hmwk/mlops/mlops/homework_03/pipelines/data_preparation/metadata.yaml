@@ -78,7 +78,8 @@ run_pipeline_in_one_process: false
 settings:
   triggers: null
 spark_config: {}
-tags: []
+tags:
+- data loader
 type: python
 uuid: data_preparation
 variables:
@@ -94,6 +95,8 @@ widgets:
     group_by:
     - tpep_pickup_datetime
     metrics:
+    - aggregation: count
+      column: trip_distance
     - aggregation: average
       column: tpep_pickup_datetime
     time_interval: original
