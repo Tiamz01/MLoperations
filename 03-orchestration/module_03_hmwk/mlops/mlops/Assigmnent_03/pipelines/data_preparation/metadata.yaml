@@ -108,8 +108,7 @@ widgets:
   status: failed
   timeout: null
   type: chart
-  upstream_blocks:
-  - ingest
+  upstream_blocks: []
   uuid: missing_values_for_ingest
 - all_upstream_blocks_executed: true
   color: null

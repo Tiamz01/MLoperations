@@ -1,0 +1,112 @@
+blocks:
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    file_source:
+      path: unit_2_training/global_data_products/opaque_surf.py
+    global_data_product:
+      outdated_after:
+        seconds: 600
+      settings:
+        build:
+          partitions: 1
+      uuid: training_dataset
+  downstream_blocks:
+  - missing_values_for_opaque_surf
+  - opaque_surf_histogram_o5
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: opaque surf
+  retry_config: {}
+  status: failed
+  timeout: null
+  type: global_data_product
+  upstream_blocks: []
+  uuid: opaque_surf
+cache_block_output_in_memory: false
+callbacks: []
+concurrency_config: {}
+conditionals: []
+created_at: '2024-06-11 09:32:48.836452+00:00'
+data_integration: null
+description: null
+executor_config: {}
+executor_count: 1
+executor_type: null
+extensions: {}
+name: skelarn_training
+notification_config: {}
+remote_variables_dir: null
+retry_config: {}
+run_pipeline_in_one_process: false
+settings:
+  triggers: null
+spark_config: {}
+tags: []
+type: python
+uuid: skelarn_training
+variables_dir: /home/src/mage_data/unit_2_training
+widgets:
+- all_upstream_blocks_executed: false
+  color: null
+  configuration:
+    chart_style: horizontal
+    chart_type: bar chart
+    x: columns_with_mising_values
+    y: percentage_of_missing_values
+    y_sort_order: descending
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: missing values for opaque_surf
+  retry_config: null
+  status: updated
+  timeout: null
+  type: chart
+  upstream_blocks:
+  - opaque_surf
+  uuid: missing_values_for_opaque_surf
+- all_upstream_blocks_executed: false
+  color: null
+  configuration:
+    chart_style: horizontal
+    chart_type: bar chart
+    x: columns
+    y: number_of_unique_values
+    y_sort_order: descending
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: unique values for opaque_surf
+  retry_config: null
+  status: updated
+  timeout: null
+  type: chart
+  upstream_blocks:
+  - opaque_surf
+  uuid: unique_values_for_opaque_surf
+- all_upstream_blocks_executed: false
+  color: null
+  configuration:
+    buckets: 10
+    chart_type: histogram
+    x: x
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: opaque_surf_histogram_o5
+  retry_config: null
+  status: updated
+  timeout: null
+  type: chart
+  upstream_blocks:
+  - opaque_surf
+  uuid: opaque_surf_histogram_o5

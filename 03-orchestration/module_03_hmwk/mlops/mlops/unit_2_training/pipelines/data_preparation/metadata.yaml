@@ -3,13 +3,15 @@ blocks:
   color: null
   configuration:
     file_source:
-      path: homework_03/data_loaders/ingest.py
+      path: Assigmnent_03/data_loaders/ingest.py
   downstream_blocks:
   - prepare
   - missing_values_for_ingest
   - unique_values_for_ingest
   - most_frequent_values_for_ingest
-  - ingest_bar_chart_j0
+  - summary_overview_for_ingest
+  - ingest_histogram_y9
+  - ingest_bar_chart_v0
   executor_config: null
   executor_type: local_python
   has_callback: false
@@ -25,7 +27,7 @@ blocks:
   color: null
   configuration:
     file_source:
-      path: homework_03/transformers/prepare.py
+      path: Assigmnent_03/transformers/prepare.py
   downstream_blocks:
   - build
   executor_config: null
@@ -34,7 +36,7 @@ blocks:
   language: python
   name: prepare
   retry_config: null
-  status: executed
+  status: failed
   timeout: null
   type: transformer
   upstream_blocks:
@@ -44,7 +46,7 @@ blocks:
   color: null
   configuration:
     file_source:
-      path: homework_03/data_exporters/build.py
+      path: Assigmnent_03/data_exporters/build.py
   downstream_blocks: []
   executor_config: null
   executor_type: local_python
@@ -62,14 +64,15 @@ cache_block_output_in_memory: false
 callbacks: []
 concurrency_config: {}
 conditionals: []
-created_at: '2024-06-09 21:48:46.957749+00:00'
+created_at: '2024-06-10 15:34:14.274064+00:00'
 data_integration: null
-description: load and perform feature engineering and selection on data
+description: This pipeline load data from source and perform feature engineering and
+  selection
 executor_config: {}
 executor_count: 1
 executor_type: null
 extensions: {}
-name: data preparation
+name: data_preparation
 notification_config: {}
 remote_variables_dir: null
 retry_config: {}
@@ -77,7 +80,8 @@ run_pipeline_in_one_process: false
 settings:
   triggers: null
 spark_config: {}
-tags: []
+tags:
+- data loader
 type: python
 uuid: data_preparation
 variables:
@@ -104,8 +108,7 @@ widgets:
   status: executed
   timeout: null
   type: chart
-  upstream_blocks:
-  - ingest
+  upstream_blocks: []
   uuid: missing_values_for_ingest
 - all_upstream_blocks_executed: true
   color: null
@@ -125,7 +128,8 @@ widgets:
   status: executed
   timeout: null
   type: chart
-  upstream_blocks: []
+  upstream_blocks:
+  - ingest
   uuid: unique_values_for_ingest
 - all_upstream_blocks_executed: true
   color: null
@@ -145,30 +149,66 @@ widgets:
   status: executed
   timeout: null
   type: chart
-  upstream_blocks: []
+  upstream_blocks:
+  - ingest
   uuid: most_frequent_values_for_ingest
 - all_upstream_blocks_executed: true
   color: null
   configuration:
-    chart_style: vertical
-    chart_type: bar chart
-    group_by:
-    - trip_distance
-    metrics:
-    - aggregation: average
-      column: trip_distance
-    x: x
-    y: y
-    y_sort_order: ascending
+    chart_type: table
+    height: 3000
+    index: stats
+    x: headers
+    y: rows
   downstream_blocks: []
   executor_config: null
   executor_type: local_python
   has_callback: false
   language: python
-  name: ingest_bar chart_j0
+  name: summary overview for ingest
   retry_config: null
-  status: failed
+  status: executed
   timeout: null
   type: chart
-  upstream_blocks: []
-  uuid: ingest_bar_chart_j0
+  upstream_blocks:
+  - ingest
+  uuid: summary_overview_for_ingest
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    buckets: 10
+    chart_type: histogram
+    x: x
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: ingest_histogram_y9
+  retry_config: null
+  status: executed
+  timeout: null
+  type: chart
+  upstream_blocks:
+  - ingest
+  uuid: ingest_histogram_y9
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    chart_style: vertical
+    chart_type: bar chart
+    x: x
+    y: y
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: ingest_bar chart_v0
+  retry_config: null
+  status: executed
+  timeout: null
+  type: chart
+  upstream_blocks:
+  - ingest
+  uuid: ingest_bar_chart_v0

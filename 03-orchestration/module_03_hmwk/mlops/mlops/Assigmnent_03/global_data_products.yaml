@@ -1,10 +1,10 @@
-training_dataset:
+training_set:
   object_type: pipeline
   object_uuid: data_preparation
   outdated_after:
-    seconds: 599
-  project: unit_2_training
-  repo_path: /home/src/mlops/unit_2_training
+    seconds: 598
+  project: Assigmnent_03
+  repo_path: /home/src/mlops/Assigmnent_03
   settings:
     build:
       partitions: 1
