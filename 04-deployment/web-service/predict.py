@@ -17,10 +17,10 @@ def prepare_features(ride):
 def predict(features):
     x= dv.transform(features)
     preds = model.predict(x)
-    return preds[0]
+    return float(preds[0])
 
 
-app = Flask('distance_prediction')
+app = Flask('duration_prediction')
 
 
 #This is used to create an endpoint that will be connected to flask to make the app accessible through http request
@@ -31,7 +31,7 @@ def predict_endpiont():
     pred = predict(features)
 
     result = {
-        'trip_distance': pred
+        'Your trip duration': pred
     }
 
     return jsonify(result)
