@@ -65,7 +65,6 @@ df_result['ride_id'] = df['ride_id']
 df_result['predicted_duration'] = y_pred
 
 
-
 # saving the dataframe as parquet file
 df_result.to_parquet(
     output_file,
