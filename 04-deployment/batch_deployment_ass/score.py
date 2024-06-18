@@ -66,7 +66,7 @@ def run():
     year = int(sys.argv[2]) #2023
     month = int(sys.argv[3]) #3
 
-    input_file = f'https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2023-04.parquet'
+    input_file = f'https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2023-03.parquet'
     output_file = f'output/{taxi_type}/{year:04d}-{month:02d}.parquet'
     
     apply_model(
