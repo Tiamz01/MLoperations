@@ -1,13 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-get_ipython().system('pip freeze | grep scikit-learn')
-
-
-get_ipython().system('python -V')
-
-
-
+import sys
 import pickle
 import pandas as pd
 import uuid
@@ -18,14 +12,17 @@ with open('model.bin', 'rb') as f_in:
     dv, model = pickle.load(f_in)
 
 
-
-categorical = ['PULocationID', 'DOLocationID']
-
 def read_data(filename):
+    taxi_type = sys.argv[1] #'yellow'
+    year = int(sys.argv[2]) #2023
+    month = int(sys.argv[3]) #3
+
+    categorical = ['PULocationID', 'DOLocationID']
     df = pd.read_parquet(filename)
     
     df['duration'] = df.tpep_dropoff_datetime - df.tpep_pickup_datetime
     df['duration'] = df.duration.dt.total_seconds() / 60
+    df['ride_id'] = f'{year:04d}/{month:02d}_' + df.index.astype('str')
 
     df = df[(df.duration >= 1) & (df.duration <= 60)].copy()
 
@@ -34,46 +31,55 @@ def read_data(filename):
     return df
 
 
-year = 2023
-month = 3
-taxi_type = 'yellow'
+def prepare_df_dicts(df:pd.DataFrame):
+    categorical = ['PULocationID', 'DOLocationID']
+    dicts = df[categorical].to_dict(orient='records')
+    return dicts
 
-input_file = f'https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2023-03.parquet'
-output_file = f'output/{taxi_type}/{year:04d}-{month:02d}.parquet'
+def apply_model(input_file, model, output_file):
 
+    df = read_data(input_file)
+    dicts = prepare_df_dicts(df)
+    
+    X_val = dv.transform(dicts)
+    y_pred = model.predict(X_val)
 
-df = read_data(input_file)
-df
+    # Coverting result to dataframe
+    df_result = pd.DataFrame()
+    df_result['ride_id'] = df['ride_id']
+    df_result['predicted_duration'] = y_pred
+    print(f"The mean of predicted duration:{df_result['predicted_duration'].mean()}")
 
-dicts = df[categorical].to_dict(orient='records')
-X_val = dv.transform(dicts)
-y_pred = model.predict(X_val)
-y_pred.std()
-
-
-year = 2023
-month = 3
-
-# Generating ride ID as string
-df['ride_id'] = f'{year:04d}/{month:02d}_' + df.index.astype('str')
-
-
-
-# Coverting result to dataframe
-df_result = pd.DataFrame()
-df_result['ride_id'] = df['ride_id']
-df_result['predicted_duration'] = y_pred
+    # saving the dataframe as parquet file
+    df_result.to_parquet(
+        output_file,
+        engine='pyarrow',
+        compression=None,
+        index=False
+    )
+   
 
 
-# saving the dataframe as parquet file
-df_result.to_parquet(
-    output_file,
-    engine='pyarrow',
-    compression=None,
-    index=False
-)
+def run():
 
-df_result
+    taxi_type = sys.argv[1] #'yellow'
+    year = int(sys.argv[2]) #2023
+    month = int(sys.argv[3]) #3
+
+    input_file = f'https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2023-04.parquet'
+    output_file = f'output/{taxi_type}/{year:04d}-{month:02d}.parquet'
+    
+    apply_model(
+        input_file=input_file,
+        model=model,
+        output_file=output_file
+    )
+
+
+
+
+if __name__== "__main__":
+    run()
 
 
 
