@@ -1,6 +1,6 @@
-version: '3.7'
+version: '3.7' #version of docker compose
 
-volumes: 
+volumes:  # for storing artifact
   grafana_data: {}
 
 networks:
@@ -8,16 +8,18 @@ networks:
   back-tier:
 
 services:
+  # storage
   db:
     image: postgres
     restart: always
     environment:
       POSTGRES_PASSWORD: example
     ports:
-      - "5432:5432"
+      - "5433:5433"
     networks:
       - back-tier
 
+  # tool for managing DB content
   adminer:
     image: adminer
     restart: always
@@ -34,8 +36,8 @@ services:
       - "3000:3000"
     volumes:
       - ./config/grafana_datasources.yaml:/etc/grafana/provisioning/datasources/datasource.yaml:ro
-      - ./config/grafana_dashboards.yaml:/etc/grafana/provisioning/dashboards/dashboards.yaml:ro
-      - ./dashboards:/opt/grafana/dashboards
+      # - ./config/grafana_dashboards.yaml:/etc/grafana/provisioning/dashboards/dashboards.yaml:ro
+      # - ./dashboards:/opt/grafana/dashboards
     networks:
       - back-tier
       - front-tier
