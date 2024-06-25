@@ -16,6 +16,19 @@ apiVersion: 1
 #       sslmode: 'disable'
 
 
+# datasources:
+#   - name: PostgreSQL
+#     type: postgres
+#     access: proxy
+#     url: db:5432
+#     user: postgres
+#     secureJsonData:
+#       password: 'example'
+#     jsonData:
+#       sslmode: 'disable'
+#       database: test
+
+
 datasources:
   - name: PostgreSQL
     type: postgres
@@ -26,5 +39,5 @@ datasources:
       password: 'example'
     jsonData:
       sslmode: 'disable'
-      database: test
+      database: metrics_store
 
