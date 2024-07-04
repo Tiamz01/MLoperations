@@ -69,4 +69,4 @@ def lambda_handler(event, context):
 
     return {
         'predictions': predictions_events
-    }
+    } 
